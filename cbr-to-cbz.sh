@@ -16,7 +16,7 @@ then
 	source_dir=$(pwd)
 	output_dir="$source_dir"
 else
-	source_dir=$(readlink -e "$1")
+	source_dir=$(readlink -e "$1") # absolute path of directory
 	output_dir=$(pwd)
 fi
 
@@ -35,6 +35,7 @@ for file in "$source_dir"/*.cbr; do
 	echo "Converting to cbz ..."
 	
 	7z a -tzip -mx=0 "$output_dir/cbz-files/$file_name.cbz"
+	cd .. && rm -rf $file_name
 done
 
 
